@@ -8,8 +8,17 @@ from generate_url_amazon import generateUrl
 from treat_csv import treat_csv
 from rank_products import rank_products
 
-app = FastAPI()
+import os
+import threading
+from time import sleep
 
+
+def remover_arquivo(csv_path):
+    sleep(4)
+    os.remove(csv_path)
+
+
+app = FastAPI()
 
 @app.get("/{item_id}")
 async def download_csv(item_id: int, response: Response):
@@ -34,4 +43,8 @@ async def download_csv(item_id: int, response: Response):
 
     print(f'O nome do csv será: {csv}')
 
+    remover_thread = threading.Thread(target=remover_arquivo, args=(csv_path,))
+    remover_thread.start()
+
     return FileResponse(path=csv_path, media_type="text/csv", filename=csv)
+    
