@@ -13,9 +13,10 @@ def generateUrl(filial_escolhida):
           filiais[filiais_request[item]['nome_fantasia']] = {'id':item, 'bucket_name':'none', 'region':'none'}
 
     # criando e printando lista enumerada com todas as lojas
-    for i,  item in enumerate(filiais):
-      ids.append(filiais[item]['id'])
-      nomes_filiais.append(item)
+    for item in filiais:
+      if 'Cometa' in item:
+        ids.append(filiais[item]['id'])
+        nomes_filiais.append(item)
 
     # colocando tudo em váriavél
     filial_id = ids[int(filial_escolhida)]
